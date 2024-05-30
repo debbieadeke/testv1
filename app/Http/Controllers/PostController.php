@@ -13,15 +13,8 @@ class PostController extends Controller
     public function index()
     {
         //get all posts from database
-        $name ='Debbie';
-        $age = '20';
-        $posts = [
-            'post 1',
-            'post 2',
-            'post 3',
-            'post 4',
-        ];
-        return view('posts.index', ['username'=> $name, 'age'=> $age ,'post'=>$posts]);
+        $posts = post::all();
+       return view('posts.index', ['post'=>$posts]);
     }
 
     /**
@@ -37,15 +30,22 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+     
+        Post::create([
+            'title'=>$request->title,
+            'content'=> $request->content,
+        ]);
+        // return redirect()->route('posts.index');
+        return to_route('posts.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(Post $post)
     {
-       return view('posts.show');
+        // $post = Post::findorFail($id);
+       return view('posts.show',['post'=>$post]);
     }
 
     /**

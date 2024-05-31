@@ -1,11 +1,10 @@
 <x-layout>
   <x-header>Post Create Page</x-header>
-    <div class="max-w-2xl mx-auto p-4 bg-slate-200 dark:bg-slate-900 rounded-lg">
-        <form method="POST" action="/posts">
+    <div class="max-w-2xl p-4 mx-auto rounded-lg bg-slate-200 dark:bg-slate-900">
+        <form method="POST" action="{{route('posts.store')}}">
             @csrf
             <div class="mb-6" >
-                <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900
-                dark:text-white">Tittle</label>
+                <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tittle</label>
                 <input type="text" id="default-input" name="title" class="bg-gray-50 border border-gray-300 
                 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 
                 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400

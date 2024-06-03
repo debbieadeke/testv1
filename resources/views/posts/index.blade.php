@@ -1,10 +1,12 @@
 <x-layout>
     <x-header>Post Index Page</x-header>
-    <section>
-        <div class="flex justify-end">
-            <a href="{{route('post.create')}}" class="bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg text-sm px-5 py-2.5 focus:ring-blue-300 focus:ring-4 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</a>
-        </div>
-    </section>
+   @auth
+   <section>
+    <div class="flex justify-end">
+        <a href="{{route('posts.create')}}" class="bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg text-sm px-5 py-2.5 focus:ring-blue-300 focus:ring-4 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</a>
+    </div>
+</section> 
+   @endauth
     <div class="max-w-6xl mx-auto mt-8 space-y-6 rounded-lg sm:px-6 lg:px-8">
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">

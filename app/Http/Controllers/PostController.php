@@ -51,9 +51,9 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $POST)
+    public function edit(Post $post)
     {
-        return view('posts.edit', ['post=>$post']);
+        return view('posts.edit', ['post'=>$post]);
     }
 
     /**
@@ -61,7 +61,14 @@ class PostController extends Controller
      */
     public function update(Request $request, post $post)
     {
-        //
+        $validated = $request->validate([
+            'title'=>['required','min:5','max:255'],
+            'content'=>['required','min:10'],
+        ]);
+        $post->update($validated);
+        return to_route('posts.index');
+
+
     }
 
     /**
@@ -69,6 +76,8 @@ class PostController extends Controller
      */
     public function destroy(post $post)
     {
-        //
+        $post->delete();
+        return to_route('posts.index');
+
     }
 }

@@ -32,10 +32,12 @@ class PostController extends Controller
     public function store(Request $request)
     {
      
-        Post::create([
-            'title'=>$request->title,
-            'content'=> $request->content,
+        $validated = $request->validate([
+            'title'=>['required','min:5','max:255'],
+            'content'=>['required','min:10'],
         ]);
+        auth()->user()->posts->create($validated);
+
         // return redirect()->route('posts.index');
         return to_route('posts.index');
     }

@@ -19,7 +19,10 @@
             <x-navbar-link href="{{route('register')}}" :active="request()->is('register')">Register</x-navbar-link>
             @endguest
             @auth
-            <x-navbar-link href="{{route('register')}}" :active="request()->is('register')">Logout</x-navbar-link>
+            <form method="POST" action="{{route('logout')}}">
+              @csrf     
+              <x-navbar-link href="{{route('register')}}" :active="false" onclick="event.preventDefault(); this.closest ('form').submit();">Logout</x-navbar-link>
+            </form>
             @endauth
         </ul>
         

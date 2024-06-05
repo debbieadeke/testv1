@@ -2,10 +2,13 @@
     <section class="mt-4">
         <div class="flex justify-end">
             <div class="flex justify-between">
+                @can('update', $post)
                 <a href="{{ route('posts.edit',$post->id)}}" class="bg-blue-700 hover:bg-blue-800
-                     text-white font-medium rounded-lg text-sm px-5 py-2.5 
-                     focus:ring-blue-300 focus:ring-4 focus:outline-none dark:bg-blue-600
-                      dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit</a>
+                    text-white font-medium rounded-lg text-sm px-5 py-2.5 
+                    focus:ring-blue-300 focus:ring-4 focus:outline-none dark:bg-blue-600
+                     dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit</a>
+                     @endcan
+                     @can('delete', $post)
                   <form action="{{route('posts.destroy',$post->id)}}" method="POST">
                     @csrf
                     @method('DELETE')
@@ -16,6 +19,7 @@
                           dark:hover:bg-red-700 dark:focus:ring-red-800">Delete</a>
                          </button>
                   </form>
+                  @endcan
             </div>
         </div>
     </section>

@@ -10,7 +10,7 @@
     <div class="max-w-6xl mx-auto mt-8 space-y-6 rounded-lg sm:px-6 lg:px-8">
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        @foreach ($post as $post)
+        @foreach ($posts as $post)
             <div class="max-w-xs p-6 bg-white border border-gray-200 rounded-lg shadow md:max-w-xs lg:max-w-sm dark:bg-gray-800 dark:border-gray-700">
                 <a href="/posts/{{$post->id}}">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{$post->title}}</h5>

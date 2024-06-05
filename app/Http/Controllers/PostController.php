@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -12,9 +13,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //get all posts from database
-        $posts = post::all();
-       return view('posts.index', ['post'=>$posts]);
+        // Get all posts from the database
+        $posts = Post::all();
+        return view('posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -22,7 +23,6 @@ class PostController extends Controller
      */
     public function create()
     {
-    
         return view('posts.create');
     }
 
@@ -31,14 +31,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-     
         $validated = $request->validate([
-            'title'=>['required','min:5','max:255'],
-            'content'=>['required','min:10'],
+            'title' => ['required', 'min:5', 'max:255'],
+            'content' => ['required', 'min:10'],
         ]);
-        auth()->user()->posts->create($validated);
 
-        // return redirect()->route('posts.index');
+        // Create the post using the authenticated user's posts relationship
+        auth()->user()->posts()->create($validated);
+
         return to_route('posts.index');
     }
 
@@ -47,8 +47,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        // $post = Post::findorFail($id);
-       return view('posts.show',['post'=>$post]);
+        return view('posts.show', ['post' => $post]);
     }
 
     /**
@@ -56,31 +55,32 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.edit', ['post'=>$post]);
+       Gate::authorize('update',$post);
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, post $post)
+    public function update(Request $request, Post $post)
     {
+        Gate::authorize('update',$post);
         $validated = $request->validate([
-            'title'=>['required','min:5','max:255'],
-            'content'=>['required','min:10'],
+            'title' => ['required', 'min:5', 'max:255'],
+            'content' => ['required', 'min:10'],
         ]);
+
         $post->update($validated);
         return to_route('posts.index');
-
-
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(post $post)
+    public function destroy(Post $post)
     {
+        Gate::authorize('delete',$post);
         $post->delete();
         return to_route('posts.index');
-
     }
 }

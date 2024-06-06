@@ -19,6 +19,7 @@
             <x-navbar-link href="{{route('register')}}" :active="request()->is('register')">Register</x-navbar-link>
             @endguest
             @auth
+            <span class="font-semibold text-blue-600 dark:text-blue-400">{{Auth::user()->name}}</span>
             <form method="POST" action="{{route('logout')}}">
               @csrf     
               <x-navbar-link href="{{route('register')}}" :active="false" onclick="event.preventDefault(); this.closest ('form').submit();">Logout</x-navbar-link>

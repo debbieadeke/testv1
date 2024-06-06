@@ -38,6 +38,11 @@ Route::middleware('auth')->group(function ( ) {
     Route::put('/posts/{post}',[PostController::class, 'update'])->name('posts.update');
     Route::delete('/posts/{post}',[PostController::class, 'destroy'])->name('posts.destroy');
     Route::post('/logout',[LoginUserController::class,'logout'])->name('logout');
+
+
+    Route::get('/admin', function(){
+        return 'You are logged in as admin';
+    })->middleware('can:is_admin')->name('admin');
     
 });
 Route::get('/posts',[PostController::class, 'index'])->name('posts.index');
